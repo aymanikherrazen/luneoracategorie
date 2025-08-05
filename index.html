@@ -7,7 +7,7 @@
 
   <!-- SwiperJS CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-  <!-- AOS (Animate on Scroll) CSS -->
+  <!-- AOS CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
 
   <style>
@@ -88,6 +88,7 @@
   <section class="categories-slider" data-aos="fade-up" data-aos-duration="1000">
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
+
         <!-- Catégorie 1 -->
         <a href="https://luneoracosmiteques.com/collections/luneora-skincare" target="_top" class="swiper-slide">
           <img src="https://cdn.youcan.shop/stores/c795db5cea64aae47157edb49a145ffe/others/9pj9QEikJrY838lCXgvRUfUTRwPcheEWJMtl78Ac.png" alt="Visage" />
@@ -127,6 +128,7 @@
             <div class="category-title">Nos Pack</div>
           </div>
         </a>
+
       </div>
 
       <!-- Navigation -->
@@ -135,9 +137,8 @@
     </div>
   </section>
 
-  <!-- SwiperJS -->
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-  <!-- AOS -->
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
   <script>
@@ -155,8 +156,14 @@
         0: {
           slidesPerView: 2,
         },
+        480: {
+          slidesPerView: 2.2,
+        },
+        640: {
+          slidesPerView: 2.5,
+        },
         768: {
-          slidesPerView: 2,
+          slidesPerView: 3,
         },
         992: {
           slidesPerView: 4,
