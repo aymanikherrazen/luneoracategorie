@@ -1,178 +1,187 @@
-<!-- SwiperJS CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-<!-- AOS (Animate on Scroll) CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Slider Categories</title>
 
-<style>
-  .categories-slider {
-    padding: 60px 20px;
-    background-color: #ffffff; /* bg blanc */
-    font-family: 'Montserrat', sans-serif;
-  }
+  <!-- SwiperJS CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <!-- AOS (Animate on Scroll) CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
 
-  .categories-slider h2 {
-    text-align: center;
-    font-size: 22px;
-    font-weight: 700;
-    color: #000;
-    margin-bottom: 12px;
-  }
+  <style>
+    .categories-slider {
+      padding: 60px 20px;
+      background-color: #ffffff; /* bg blanc */
+      font-family: 'Montserrat', sans-serif;
+    }
 
-  .categories-slider p.subtitle {
-    text-align: center;
-    font-size: 14px;
-    color: #595959;
-    margin-bottom: 40px;
-    font-weight: 400;
-  }
+    .categories-slider h2 {
+      text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 12px;
+    }
 
-  .swiper {
-    padding-bottom: 40px;
-  }
+    .categories-slider p.subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #595959;
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
 
-  .swiper-slide {
-    position: relative;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    background: #fff;
-    cursor: pointer;
-    transition: transform 0.4s ease;
-  }
+    .swiper {
+      padding-bottom: 40px;
+    }
 
-  .swiper-slide:hover {
-    transform: translateY(-5px);
-  }
+    .swiper-slide {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      background: #fff;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
 
-  .swiper-slide img {
-    width: 100%;
-    height: 280px;
-    object-fit: cover;
-    display: block;
-    transition: opacity 0.3s ease;
-  }
+    .swiper-slide:hover {
+      transform: translateY(-5px);
+    }
 
-  .category-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.4));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .category-title {
-    font-size: 22px;
-    font-weight: 600;
-    color: #fff;
-    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    padding: 0 10px;
-  }
-
-  .swiper-button-next,
-  .swiper-button-prev {
-    color: #b59b7b;
-  }
-
-  .swiper-button-next:hover,
-  .swiper-button-prev:hover {
-    color: #fff;
-  }
-
-  @media (max-width: 768px) {
     .swiper-slide img {
-      height: 200px;
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.3s ease;
     }
+
+    .category-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.4));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     .category-title {
-      font-size: 16px;
+      font-size: 22px;
+      font-weight: 600;
+      color: #fff;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      padding: 0 10px;
     }
-  }
-</style>
 
-<section class="categories-slider" data-aos="fade-up" data-aos-duration="1000">
-  <h2>Nos Categories</h2>
-  <p class="subtitle">Découvrez nos categories classés par besoins pour une beauté naturelle et consciente.</p>
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #b59b7b;
+    }
 
-  <div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-      <!-- Catégorie 1 -->
-      <a href="/categorie/soins-visage" class="swiper-slide">
-        <img src="https://cdn.youcan.shop/stores/c795db5cea64aae47157edb49a145ffe/others/9pj9QEikJrY838lCXgvRUfUTRwPcheEWJMtl78Ac.png" alt="Visage" />
-        <div class="category-overlay">
-          <div class="category-title">Soins Visage</div>
-        </div>
-      </a>
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+      color: #fff;
+    }
 
-      <!-- Catégorie 2 -->
-      <a href="/categorie/cheveux" class="swiper-slide">
-        <img src="https://i.postimg.cc/XJCyW0WH/cheveux-cat-image.jpg" alt="Cheveux" />
-        <div class="category-overlay">
-          <div class="category-title">Cheveux</div>
-        </div>
-      </a>
+    @media (max-width: 768px) {
+      .swiper-slide img {
+        height: 200px;
+      }
+      .category-title {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="categories-slider" data-aos="fade-up" data-aos-duration="1000">
+    <h2>Nos Categories</h2>
+    <p class="subtitle">Découvrez nos categories classés par besoins pour une beauté naturelle et consciente.</p>
 
-      <!-- Catégorie 3 -->
-      <a href="/categorie/corps" class="swiper-slide">
-        <img src="https://i.postimg.cc/GtnThShc/corps-cat.jpg" alt="Corps" />
-        <div class="category-overlay">
-          <div class="category-title">Soins Corps</div>
-        </div>
-      </a>
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <!-- Catégorie 1 -->
+        <a href="/categorie/soins-visage" class="swiper-slide">
+          <img src="https://cdn.youcan.shop/stores/c795db5cea64aae47157edb49a145ffe/others/9pj9QEikJrY838lCXgvRUfUTRwPcheEWJMtl78Ac.png" alt="Visage" />
+          <div class="category-overlay">
+            <div class="category-title">Soins Visage</div>
+          </div>
+        </a>
 
-      <!-- Catégorie 4 -->
-      <a href="/categorie/solaires" class="swiper-slide">
-        <img src="https://i.postimg.cc/Rh163QNw/solaire-cat-image.jpg" alt="Solaires" />
-        <div class="category-overlay">
-          <div class="category-title">Solaires</div>
-        </div>
-      </a>
+        <!-- Catégorie 2 -->
+        <a href="/categorie/cheveux" class="swiper-slide">
+          <img src="https://i.postimg.cc/XJCyW0WH/cheveux-cat-image.jpg" alt="Cheveux" />
+          <div class="category-overlay">
+            <div class="category-title">Cheveux</div>
+          </div>
+        </a>
 
-      <!-- Catégorie 5 -->
-      <a href="/categorie/routines" class="swiper-slide">
-        <img src="https://cdn.youcan.shop/stores/c795db5cea64aae47157edb49a145ffe/others/9pj9QEikJrY838lCXgvRUfUTRwPcheEWJMtl78Ac.png" alt="Routines" />
-        <div class="category-overlay">
-          <div class="category-title">Nos Pack</div>
-        </div>
-      </a>
+        <!-- Catégorie 3 -->
+        <a href="/categorie/corps" class="swiper-slide">
+          <img src="https://i.postimg.cc/GtnThShc/corps-cat.jpg" alt="Corps" />
+          <div class="category-overlay">
+            <div class="category-title">Soins Corps</div>
+          </div>
+        </a>
+
+        <!-- Catégorie 4 -->
+        <a href="/categorie/solaires" class="swiper-slide">
+          <img src="https://i.postimg.cc/Rh163QNw/solaire-cat-image.jpg" alt="Solaires" />
+          <div class="category-overlay">
+            <div class="category-title">Solaires</div>
+          </div>
+        </a>
+
+        <!-- Catégorie 5 -->
+        <a href="/categorie/routines" class="swiper-slide">
+          <img src="https://cdn.youcan.shop/stores/c795db5cea64aae47157edb49a145ffe/others/9pj9QEikJrY838lCXgvRUfUTRwPcheEWJMtl78Ac.png" alt="Routines" />
+          <div class="category-overlay">
+            <div class="category-title">Nos Pack</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Navigation -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
     </div>
+  </section>
 
-    <!-- Navigation -->
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-  </div>
-</section>
+  <!-- SwiperJS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <!-- AOS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
-<!-- SwiperJS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<!-- AOS -->
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
 
-<script>
-  AOS.init();
-
-  var swiper = new Swiper(".mySwiper", {
-    slidesPerView: 4,
-    spaceBetween: 20,
-    loop: true,
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-    breakpoints: {
-      0: {
-        slidesPerView: 2,
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 4,
+      spaceBetween: 20,
+      loop: true,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
       },
-      768: {
-        slidesPerView: 2,
+      breakpoints: {
+        0: {
+          slidesPerView: 2,
+        },
+        768: {
+          slidesPerView: 2,
+        },
+        992: {
+          slidesPerView: 4,
+        },
       },
-      992: {
-        slidesPerView: 4,
-      },
-    },
-  });
-</script>
-
+    });
+  </script>
+</body>
+</html>
