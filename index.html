@@ -1,175 +1,871 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Slider Categories</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Catégories - LUNÉORA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <!-- SwiperJS CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-  <!-- AOS CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+        :root {
+            --primary: #6F4E37;
+            --secondary: #B59B7B;
+            --light-primary: #E9DCD4;
+            --accent: #C4A88A;
+            --text: #333333;
+            --text-light: #595959;
+            --bg: #ffffff;
+            --shadow: rgba(111, 78, 55, 0.1);
+            --hover-shadow: rgba(111, 78, 55, 0.2);
+            --mobile-speed: 2500ms;
+            --desktop-speed: 4000ms;
+        }
 
-  <style>
-    .categories-slider {
-      padding: 60px 20px;
-      background-color: #ffffff;
-      font-family: 'Montserrat', sans-serif;
-    }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            padding: 0;
+            margin: 0;
+        }
 
-    .swiper {
-      padding-bottom: 40px;
-    }
+        .categories-section {
+            background: #ffffff;
+            padding: 40px 15px;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+        }
 
-    .swiper-slide {
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-      background: #fff;
-      cursor: pointer;
-      transition: transform 0.4s ease;
-    }
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-    .swiper-slide:hover {
-      transform: translateY(-5px);
-    }
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 5px;
+            position: relative;
+            display: inline-block;
+        }
 
-    .swiper-slide img {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-      display: block;
-      transition: opacity 0.3s ease;
-    }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
 
-    .category-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.4));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        .section-subtitle {
+            color: #595959;
+            font-size: 14px;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 5px auto 25px;
+            line-height: 1.6;
+            font-family: 'Montserrat', sans-serif;
+        }
 
-    .category-title {
-      font-size: 22px;
-      font-weight: 600;
-      color: #fff;
-      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      padding: 0 10px;
-    }
+        /* Slider Container */
+        .slider-wrapper {
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+            padding: 30px 20px;
+            box-shadow: 0 8px 32px rgba(111, 78, 55, 0.08);
+        }
 
-    .swiper-button-next,
-    .swiper-button-prev {
-      color: #b59b7b;
-    }
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
 
-    .swiper-button-next:hover,
-    .swiper-button-prev:hover {
-      color: #fff;
-    }
+        .slider-track {
+            display: flex;
+            gap: 24px;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            padding: 10px 0;
+        }
 
-    @media (max-width: 768px) {
-      .swiper-slide img {
-        height: 200px;
-      }
-      .category-title {
-        font-size: 16px;
-      }
-    }
-  </style>
+        /* Category Cards */
+        .category-card {
+            flex: 0 0 auto;
+            width: 220px;
+            height: 280px;
+            background: var(--bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(111, 78, 55, 0.08);
+            border: 1px solid rgba(111, 78, 55, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+            z-index: 3;
+        }
+
+        .category-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(111, 78, 55, 0.2);
+            border-color: var(--primary);
+            text-decoration: none;
+        }
+
+        .category-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            object-position: center;
+            transition: all 0.4s ease;
+            filter: brightness(0.9) saturate(1.1);
+        }
+
+        .category-card:hover .category-image {
+            transform: scale(1.05);
+            filter: brightness(1) saturate(1.2);
+        }
+
+        .category-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(
+                135deg, 
+                rgba(111, 78, 55, 0.4) 0%, 
+                rgba(111, 78, 55, 0.2) 50%,
+                rgba(181, 155, 123, 0.3) 100%
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .category-card:hover .category-overlay {
+            opacity: 1;
+        }
+
+        .category-info {
+            padding: 20px;
+            background: var(--bg);
+            position: relative;
+            z-index: 2;
+        }
+
+        .category-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+            text-align: center;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            line-height: 1.3;
+        }
+
+        .category-card:hover .category-title {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .category-description {
+            font-size: 12px;
+            color: var(--text-light);
+            text-align: center;
+            line-height: 1.4;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover .category-description {
+            opacity: 1;
+            color: var(--text);
+        }
+
+        .category-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
+
+        .category-icon i {
+            font-size: 18px;
+            color: var(--primary);
+            transition: all 0.4s ease;
+        }
+
+        .category-card:hover .category-icon {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .category-card:hover .category-icon i {
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        /* Navigation Buttons */
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .nav-btn {
+            width: 48px;
+            height: 48px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--light-primary), #f0e6dc);
+            color: var(--primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(111, 78, 55, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 50%;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(111, 78, 55, 0.2);
+        }
+
+        .nav-btn:hover::before {
+            opacity: 1;
+        }
+
+        .nav-btn:hover i {
+            color: white;
+            transform: scale(1.1);
+            z-index: 1;
+            position: relative;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .nav-btn:disabled:hover {
+            transform: none;
+            box-shadow: 0 4px 15px rgba(111, 78, 55, 0.1);
+        }
+
+        /* Indicators */
+        .slider-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(111, 78, 55, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        .indicator:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .categories-section {
+            animation: scaleIn 0.8s ease-out;
+        }
+
+        .category-card {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* PC/Desktop - Show all categories */
+        @media (min-width: 1024px) {
+            .categories-section {
+                max-width: 1300px;
+            }
+            
+            .slider-track {
+                gap: 18px;
+                justify-content: center;
+            }
+            
+            .category-card {
+                width: 200px;
+                height: 270px;
+            }
+            
+            .category-image {
+                height: 190px;
+            }
+            
+            .category-overlay {
+                height: 190px;
+            }
+            
+            .slider-nav,
+            .slider-indicators {
+                display: none;
+            }
+        }
+
+        /* Tablet */
+        @media (max-width: 1023px) and (min-width: 769px) {
+            .category-card {
+                width: 200px;
+                height: 260px;
+            }
+            
+            .category-image {
+                height: 180px;
+            }
+            
+            .category-overlay {
+                height: 180px;
+            }
+        }
+
+        /* Mobile - Show 2 columns optimized */
+        @media (max-width: 768px) {
+            .categories-section {
+                padding: 40px 15px;
+            }
+
+            .slider-wrapper {
+                padding: 25px 15px;
+            }
+
+            .slider-track {
+                gap: 20px;
+            }
+
+            .category-card {
+                width: calc(50vw - 30px);
+                min-width: 150px;
+                max-width: 170px;
+                height: 240px;
+            }
+
+            .category-image {
+                height: 160px;
+            }
+
+            .category-overlay {
+                height: 160px;
+            }
+
+            .category-info {
+                padding: 15px 10px;
+            }
+
+            .category-title {
+                font-size: 14px;
+                margin-bottom: 6px;
+            }
+
+            .category-description {
+                font-size: 11px;
+            }
+
+            .category-icon {
+                width: 35px;
+                height: 35px;
+                top: 12px;
+                right: 12px;
+            }
+
+            .category-icon i {
+                font-size: 16px;
+            }
+
+            .nav-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .categories-section {
+                padding: 30px 10px;
+            }
+
+            .slider-wrapper {
+                padding: 20px 10px;
+            }
+
+            .category-card {
+                width: calc(50vw - 25px);
+                min-width: 140px;
+                max-width: 160px;
+                height: 220px;
+            }
+
+            .category-image {
+                height: 145px;
+            }
+
+            .category-overlay {
+                height: 145px;
+            }
+
+            .category-info {
+                padding: 12px 8px;
+            }
+
+            .category-title {
+                font-size: 13px;
+            }
+
+            .category-description {
+                font-size: 10px;
+            }
+
+            .slider-track {
+                gap: 16px;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .category-card,
+            .nav-btn,
+            .slider-track,
+            .category-image,
+            .category-icon {
+                transition: none;
+            }
+            
+            .categories-section,
+            .category-card {
+                animation: none;
+                opacity: 1;
+            }
+        }
+
+        .category-card:focus,
+        .nav-btn:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* High contrast mode */
+        @media (prefers-contrast: high) {
+            .category-card {
+                border: 2px solid var(--text);
+            }
+        }
+    </style>
 </head>
 <body>
-  <section class="categories-slider" data-aos="fade-up" data-aos-duration="1000">
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
+    <section class="categories-section">
+        <div class="section-header">
+            <h2 class="section-title">Nos Catégories</h2>
+            <p class="section-subtitle">Découvrez notre gamme complète de produits cosmétiques naturels et bio pour tous vos besoins beauté.</p>
+        </div>
+        
+        <div class="slider-wrapper">
+            <div class="slider-container">
+                <div class="slider-track" id="sliderTrack">
+                    <a href="https://luneoracosmiteques.com/collections/luneora-skincare" class="category-card" target="_blank">
+                        <img src="https://cdn.youcan.shop/stores/c795db5cea64aae47157edb49a145ffe/others/9pj9QEikJrY838lCXgvRUfUTRwPcheEWJMtl78Ac.png" 
+                             alt="Soins Visage LUNÉORA" 
+                             class="category-image"
+                             loading="eager">
+                        <div class="category-overlay"></div>
+                        <div class="category-icon">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        <div class="category-info">
+                            <h3 class="category-title">Soins Visage</h3>
+                            <p class="category-description">Nettoyants, sérums, crèmes et masques pour une peau éclatante</p>
+                        </div>
+                    </a>
+                    
+                    <a href="https://luneoracosmiteques.com/collections/luneora-skincare" class="category-card" target="_blank">
+                        <img src="https://i.postimg.cc/XJCyW0WH/cheveux-cat-image.jpg" 
+                             alt="Soins Cheveux LUNÉORA" 
+                             class="category-image"
+                             loading="lazy">
+                        <div class="category-overlay"></div>
+                        <div class="category-icon">
+                            <i class="fas fa-cut"></i>
+                        </div>
+                        <div class="category-info">
+                            <h3 class="category-title">Cheveux</h3>
+                            <p class="category-description">Shampoings, après-shampoings et traitements capillaires naturels</p>
+                        </div>
+                    </a>
+                    
+                    <a href="https://luneoracosmiteques.com/collections/luneora-skincare" class="category-card" target="_blank">
+                        <img src="https://i.postimg.cc/GtnThShc/corps-cat.jpg" 
+                             alt="Soins Corps LUNÉORA" 
+                             class="category-image"
+                             loading="lazy">
+                        <div class="category-overlay"></div>
+                        <div class="category-icon">
+                            <i class="fas fa-hands"></i>
+                        </div>
+                        <div class="category-info">
+                            <h3 class="category-title">Soins Corps</h3>
+                            <p class="category-description">Crèmes hydratantes, gels douche et baumes nourrissants</p>
+                        </div>
+                    </a>
+                    
+                    <a href="https://luneoracosmiteques.com/collections/luneora-skincare" class="category-card" target="_blank">
+                        <img src="https://i.postimg.cc/Rh163QNw/solaire-cat-image.jpg" 
+                             alt="Protection Solaire LUNÉORA" 
+                             class="category-image"
+                             loading="lazy">
+                        <div class="category-overlay"></div>
+                        <div class="category-icon">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <div class="category-info">
+                            <h3 class="category-title">Solaires</h3>
+                            <p class="category-description">Protection solaire naturelle pour toute la famille</p>
+                        </div>
+                    </a>
+                    
+                    <a href="https://luneoracosmiteques.com/collections/luneora-skincare" class="category-card" target="_blank">
+                        <img src="https://cdn.youcan.shop/stores/c795db5cea64aae47157edb49a145ffe/others/9pj9QEikJrY838lCXgvRUfUTRwPcheEWJMtl78Ac.png" 
+                             alt="Packs LUNÉORA" 
+                             class="category-image"
+                             loading="lazy">
+                        <div class="category-overlay"></div>
+                        <div class="category-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div class="category-info">
+                            <h3 class="category-title">Nos Packs</h3>
+                            <p class="category-description">Routines complètes et coffrets beauté à prix avantageux</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <div class="slider-nav">
+                <button class="nav-btn" id="prevBtn" aria-label="Précédent">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="nav-btn" id="nextBtn" aria-label="Suivant">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <!-- Indicators -->
+            <div class="slider-indicators" id="indicators"></div>
+        </div>
+    </section>
 
-        <!-- Catégorie 1 -->
-        <a href="https://luneoracosmiteques.com/collections/luneora-skincare" target="_top" class="swiper-slide">
-          <img src="https://cdn.youcan.shop/stores/c795db5cea64aae47157edb49a145ffe/others/9pj9QEikJrY838lCXgvRUfUTRwPcheEWJMtl78Ac.png" alt="Visage" />
-          <div class="category-overlay">
-            <div class="category-title">Soins Visage</div>
-          </div>
-        </a>
+    <script>
+        class CategorySlider {
+            constructor() {
+                this.sliderTrack = document.getElementById('sliderTrack');
+                this.prevBtn = document.getElementById('prevBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.indicatorsContainer = document.getElementById('indicators');
+                this.cards = document.querySelectorAll('.category-card');
+                
+                this.currentIndex = 0;
+                this.totalCards = this.cards.length;
+                this.visibleCards = 2; // Always show 2 on mobile
+                this.maxIndex = Math.max(0, this.totalCards - this.visibleCards);
+                
+                this.isPlaying = true;
+                this.autoPlaySpeed = 3000;
+                this.autoPlayInterval = null;
+                
+                this.init();
+            }
+            
+            init() {
+                this.updateLayout();
+                this.createIndicators();
+                this.bindEvents();
+                this.animateCards();
+                
+                // Responsive handling
+                window.addEventListener('resize', () => {
+                    this.updateLayout();
+                    this.createIndicators();
+                });
+                
+                // Start autoplay only on mobile
+                if (window.innerWidth < 1024) {
+                    this.startAutoPlay();
+                }
+            }
+            
+            updateLayout() {
+                const isDesktop = window.innerWidth >= 1024;
+                
+                if (isDesktop) {
+                    // Desktop: show all cards, hide navigation
+                    this.sliderTrack.style.transform = 'translateX(0)';
+                    this.prevBtn.style.display = 'none';
+                    this.nextBtn.style.display = 'none';
+                    this.indicatorsContainer.style.display = 'none';
+                    this.pauseAutoPlay();
+                } else {
+                    // Mobile/Tablet: show navigation
+                    this.prevBtn.style.display = 'flex';
+                    this.nextBtn.style.display = 'flex';
+                    this.indicatorsContainer.style.display = 'flex';
+                    this.updateSlider();
+                    if (this.isPlaying) {
+                        this.startAutoPlay();
+                    }
+                }
+            }
+            
+            createIndicators() {
+                if (window.innerWidth >= 1024) return;
+                
+                const indicatorCount = Math.max(1, this.maxIndex + 1);
+                this.indicatorsContainer.innerHTML = '';
+                
+                for (let i = 0; i < indicatorCount; i++) {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'indicator';
+                    indicator.addEventListener('click', () => this.goToSlide(i));
+                    this.indicatorsContainer.appendChild(indicator);
+                }
+            }
+            
+            bindEvents() {
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+                
+                // Pause on hover
+                this.sliderTrack.addEventListener('mouseenter', () => this.pauseAutoPlay());
+                this.sliderTrack.addEventListener('mouseleave', () => {
+                    if (this.isPlaying && window.innerWidth < 1024) {
+                        this.startAutoPlay();
+                    }
+                });
+                
+                // Touch/swipe support
+                this.addTouchSupport();
+            }
+            
+            addTouchSupport() {
+                let startX = 0;
+                let currentX = 0;
+                let isDragging = false;
+                
+                this.sliderTrack.addEventListener('touchstart', (e) => {
+                    if (window.innerWidth >= 1024) return;
+                    startX = e.touches[0].clientX;
+                    isDragging = true;
+                    this.pauseAutoPlay();
+                });
+                
+                this.sliderTrack.addEventListener('touchmove', (e) => {
+                    if (!isDragging || window.innerWidth >= 1024) return;
+                    currentX = e.touches[0].clientX;
+                });
+                
+                this.sliderTrack.addEventListener('touchend', () => {
+                    if (!isDragging || window.innerWidth >= 1024) return;
+                    
+                    const diff = startX - currentX;
+                    const threshold = 50;
+                    
+                    if (Math.abs(diff) > threshold) {
+                        if (diff > 0) {
+                            this.nextSlide();
+                        } else {
+                            this.prevSlide();
+                        }
+                    }
+                    
+                    isDragging = false;
+                    if (this.isPlaying) this.startAutoPlay();
+                });
+            }
+            
+            nextSlide() {
+                if (window.innerWidth >= 1024) return;
+                this.currentIndex = (this.currentIndex + 1) % (this.maxIndex + 1);
+                this.updateSlider();
+            }
+            
+            prevSlide() {
+                if (window.innerWidth >= 1024) return;
+                this.currentIndex = this.currentIndex === 0 ? this.maxIndex : this.currentIndex - 1;
+                this.updateSlider();
+            }
+            
+            goToSlide(index) {
+                if (window.innerWidth >= 1024) return;
+                this.currentIndex = Math.max(0, Math.min(index, this.maxIndex));
+                this.updateSlider();
+            }
+            
+            updateSlider() {
+                if (window.innerWidth >= 1024) return;
+                
+                const firstCard = this.cards[0];
+                if (!firstCard) return;
+                
+                const cardWidth = firstCard.offsetWidth;
+                const gap = parseInt(getComputedStyle(this.sliderTrack).gap) || 20;
+                const translateX = -(cardWidth + gap) * this.currentIndex;
+                
+                this.sliderTrack.style.transform = `translateX(${translateX}px)`;
+                
+                // Update indicators
+                const indicators = this.indicatorsContainer.querySelectorAll('.indicator');
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === this.currentIndex);
+                });
+                
+                // Update navigation buttons
+                this.prevBtn.disabled = this.currentIndex === 0;
+                this.nextBtn.disabled = this.currentIndex === this.maxIndex;
+            }
+            
+            startAutoPlay() {
+                if (this.autoPlayInterval) {
+                    clearInterval(this.autoPlayInterval);
+                }
+                
+                this.autoPlayInterval = setInterval(() => {
+                    this.nextSlide();
+                }, this.autoPlaySpeed);
+            }
+            
+            pauseAutoPlay() {
+                if (this.autoPlayInterval) {
+                    clearInterval(this.autoPlayInterval);
+                    this.autoPlayInterval = null;
+                }
+            }
+            
+            animateCards() {
+                this.cards.forEach((card, index) => {
+                    card.style.animationDelay = `${index * 0.1}s`;
+                });
+            }
+        }
+        
+        // Initialize the slider when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new CategorySlider();
+        });
+        
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        <!-- Catégorie 2 -->
-        <a href="https://luneoracosmiteques.com/collections/luneora-skincare" target="_top" class="swiper-slide">
-          <img src="https://i.postimg.cc/XJCyW0WH/cheveux-cat-image.jpg" alt="Cheveux" />
-          <div class="category-overlay">
-            <div class="category-title">Cheveux</div>
-          </div>
-        </a>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
 
-        <!-- Catégorie 3 -->
-        <a href="https://luneoracosmiteques.com/collections/luneora-skincare" target="_top" class="swiper-slide">
-          <img src="https://i.postimg.cc/GtnThShc/corps-cat.jpg" alt="Corps" />
-          <div class="category-overlay">
-            <div class="category-title">Soins Corps</div>
-          </div>
-        </a>
-
-        <!-- Catégorie 4 -->
-        <a href="https://luneoracosmiteques.com/collections/luneora-skincare" target="_top" class="swiper-slide">
-          <img src="https://i.postimg.cc/Rh163QNw/solaire-cat-image.jpg" alt="Solaires" />
-          <div class="category-overlay">
-            <div class="category-title">Solaires</div>
-          </div>
-        </a>
-
-        <!-- Catégorie 5 -->
-        <a href="https://luneoracosmiteques.com/collections/luneora-skincares" target="_top" class="swiper-slide">
-          <img src="https://cdn.youcan.shop/stores/c795db5cea64aae47157edb49a145ffe/others/9pj9QEikJrY838lCXgvRUfUTRwPcheEWJMtl78Ac.png" alt="Routines" />
-          <div class="category-overlay">
-            <div class="category-title">Nos Pack</div>
-          </div>
-        </a>
-
-      </div>
-
-      <!-- Navigation -->
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-    </div>
-  </section>
-
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-
-  <script>
-    AOS.init();
-
-    var swiper = new Swiper(".mySwiper", {
-      slidesPerView: 4,
-      spaceBetween: 20,
-      loop: true,
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-      breakpoints: {
-        0: {
-          slidesPerView: 2,
-        },
-        480: {
-          slidesPerView: 2.2,
-        },
-        640: {
-          slidesPerView: 2.5,
-        },
-        768: {
-          slidesPerView: 3,
-        },
-        992: {
-          slidesPerView: 4,
-        },
-      },
-    });
-  </script>
+        observer.observe(document.querySelector('.categories-section'));
+    </script>
 </body>
 </html>
