@@ -4,680 +4,202 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nos Catégories - LUNÉORA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --p:#6F4E37;--s:#B59B7B;--lp:#E9DCD4;--a:#C4A88A;--t:#333;--tl:#595959;
+            --bg:#fff;--sh:rgba(111,78,55,.1);--hsh:rgba(111,78,55,.2)
         }
-
-        :root {
-            --primary: #6F4E37;
-            --secondary: #B59B7B;
-            --light-primary: #E9DCD4;
-            --accent: #C4A88A;
-            --text: #333333;
-            --text-light: #595959;
-            --bg: #ffffff;
-            --shadow: rgba(111, 78, 55, 0.1);
-            --hover-shadow: rgba(111, 78, 55, 0.2);
-            --mobile-speed: 2500ms;
-            --desktop-speed: 4000ms;
+        body{font:400 14px/1.5 'Montserrat',sans-serif;background:var(--bg);margin:0}
+        .cat-section{background:var(--bg);padding:40px 15px;max-width:1000px;margin:0 auto}
+        .sect-header{text-align:center;margin-bottom:30px}
+        .sect-title{font:700 22px/1.2 'Montserrat';color:#000;margin-bottom:5px;position:relative;display:inline-block}
+        .sect-title::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:60px;height:3px;background:linear-gradient(90deg,var(--p),var(--s));border-radius:2px}
+        .sect-subtitle{color:var(--tl);font:400 14px/1.6 'Montserrat';max-width:600px;margin:5px auto 25px}
+        .slider-wrap{position:relative;overflow:hidden;margin-top:20px;border-radius:16px;background:linear-gradient(135deg,#fafafa,var(--bg));padding:30px 20px;box-shadow:0 8px 32px var(--sh)}
+        .slider-cont{position:relative;overflow:hidden;border-radius:12px}
+        .slider-track{display:flex;gap:24px;transition:transform .6s cubic-bezier(.25,.46,.45,.94);padding:10px 0}
+        .cat-card{flex:0 0 auto;width:220px;min-height:300px;background:var(--bg);border-radius:16px;overflow:hidden;box-shadow:0 4px 20px var(--sh);border:1px solid rgba(111,78,55,.1);transition:all .4s cubic-bezier(.4,0,.2,1);position:relative;cursor:pointer;text-decoration:none;color:inherit;display:flex;flex-direction:column}
+        .cat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--p),var(--s),var(--a));transform:scaleX(0);transform-origin:left;transition:transform .4s;z-index:3}
+        .cat-card:hover{transform:translateY(-12px)scale(1.02);box-shadow:0 25px 50px var(--hsh);border-color:var(--p);text-decoration:none}
+        .cat-card:hover::before{transform:scaleX(1)}
+        .cat-img-wrap{position:relative;width:100%;height:180px;overflow:hidden;flex-shrink:0}
+        .cat-img{width:100%;height:100%;object-fit:cover;transition:transform .4s;filter:brightness(.9)saturate(1.1)}
+        .cat-card:hover .cat-img{transform:scale(1.05);filter:brightness(1)saturate(1.2)}
+        .cat-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(111,78,55,.4),rgba(111,78,55,.2),rgba(181,155,123,.3));opacity:0;transition:opacity .4s}
+        .cat-card:hover .cat-overlay{opacity:1}
+        .cat-info{padding:20px;background:var(--bg);position:relative;z-index:2;flex:1;display:flex;flex-direction:column;justify-content:center;min-height:120px}
+        .cat-title{font:600 16px/1.3 'Montserrat';color:var(--t);text-align:center;margin-bottom:10px;transition:all .3s}
+        .cat-card:hover .cat-title{color:var(--p);transform:translateY(-2px)}
+        .cat-desc{font:400 12px/1.5 'Montserrat';color:var(--tl);text-align:center;opacity:.8;transition:all .3s;word-wrap:break-word}
+        .cat-card:hover .cat-desc{opacity:1;color:var(--t)}
+        .cat-icon{position:absolute;top:15px;right:15px;width:40px;height:40px;background:rgba(255,255,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);transition:all .4s;z-index:2}
+        .cat-icon i{font-size:18px;color:var(--p);transition:all .4s}
+        .cat-card:hover .cat-icon{background:var(--p);transform:scale(1.1)}
+        .cat-card:hover .cat-icon i{color:#fff;transform:rotateY(180deg)}
+        .slider-nav{display:flex;justify-content:center;gap:12px;margin-top:25px}
+        .nav-btn{width:48px;height:48px;border:none;border-radius:50%;background:linear-gradient(135deg,var(--lp),#f0e6dc);color:var(--p);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;font-size:18px;box-shadow:0 4px 15px var(--sh);position:relative;overflow:hidden}
+        .nav-btn::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,var(--p),var(--s));opacity:0;transition:opacity .3s;border-radius:50%}
+        .nav-btn:hover{transform:translateY(-3px)scale(1.05);box-shadow:0 8px 25px var(--hsh)}
+        .nav-btn:hover::before{opacity:1}
+        .nav-btn:hover i{color:#fff;transform:scale(1.1);z-index:1;position:relative}
+        .nav-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+        .nav-btn:disabled:hover{transform:none;box-shadow:0 4px 15px var(--sh)}
+        .slider-indicators{display:flex;justify-content:center;gap:8px;margin-top:20px}
+        .indicator{width:8px;height:8px;border-radius:50%;background:rgba(111,78,55,.3);cursor:pointer;transition:all .3s}
+        .indicator.active{background:var(--p);transform:scale(1.2)}
+        .indicator:hover{background:var(--s);transform:scale(1.1)}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes scaleIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+        .cat-section{animation:scaleIn .8s ease-out}
+        .cat-card{opacity:0;animation:fadeUp .6s ease-out forwards}
+        @media(min-width:1024px){
+            .cat-section{max-width:1300px}
+            .slider-track{gap:18px;justify-content:center}
+            .cat-card{width:200px;min-height:290px}
+            .cat-img-wrap{height:170px}
+            .slider-nav,.slider-indicators{display:none}
         }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: #ffffff;
-            padding: 0;
-            margin: 0;
+        @media(max-width:1023px)and(min-width:769px){
+            .cat-card{width:200px;min-height:280px}
+            .cat-img-wrap{height:160px}
         }
-
-        .categories-section {
-            background: #ffffff;
-            padding: 40px 15px;
-            max-width: 1000px;
-            width: 100%;
-            margin: 0 auto;
+        @media(max-width:768px){
+            .cat-section{padding:40px 15px}
+            .slider-wrap{padding:25px 15px}
+            .slider-track{gap:20px}
+            .cat-card{width:calc(50vw - 30px);min-width:150px;max-width:170px;min-height:260px}
+            .cat-img-wrap{height:150px}
+            .cat-info{padding:15px 10px;min-height:110px}
+            .cat-title{font-size:14px;margin-bottom:8px}
+            .cat-desc{font-size:11px;line-height:1.4}
+            .cat-icon{width:35px;height:35px;top:12px;right:12px}
+            .cat-icon i{font-size:16px}
+            .nav-btn{width:44px;height:44px;font-size:16px}
         }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 30px;
+        @media(max-width:480px){
+            .cat-section{padding:30px 10px}
+            .slider-wrap{padding:20px 10px}
+            .cat-card{width:calc(50vw - 25px);min-width:140px;max-width:160px;min-height:250px}
+            .cat-img-wrap{height:140px}
+            .cat-info{padding:12px 8px;min-height:110px}
+            .cat-title{font-size:13px;margin-bottom:6px}
+            .cat-desc{font-size:10px;line-height:1.4}
+            .slider-track{gap:16px}
         }
-
-        .section-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #000000;
-            margin-bottom: 5px;
-            position: relative;
-            display: inline-block;
+        @media(max-width:360px){
+            .cat-card{min-height:240px}
+            .cat-img-wrap{height:130px}
+            .cat-info{min-height:110px}
+            .cat-desc{font-size:9px}
         }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 2px;
+        @media(prefers-reduced-motion:reduce){
+            .cat-card,.nav-btn,.slider-track,.cat-img,.cat-icon{transition:none}
+            .cat-section,.cat-card{animation:none;opacity:1}
         }
-
-        .section-subtitle {
-            color: #595959;
-            font-size: 14px;
-            font-weight: 400;
-            max-width: 600px;
-            margin: 5px auto 25px;
-            line-height: 1.6;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        /* Slider Container */
-        .slider-wrapper {
-            position: relative;
-            overflow: hidden;
-            margin-top: 20px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
-            padding: 30px 20px;
-            box-shadow: 0 8px 32px rgba(111, 78, 55, 0.08);
-        }
-
-        .slider-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-        }
-
-        .slider-track {
-            display: flex;
-            gap: 24px;
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            padding: 10px 0;
-        }
-
-        /* Category Cards */
-        .category-card {
-            flex: 0 0 auto;
-            width: 220px;
-            min-height: 300px;
-            background: var(--bg);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(111, 78, 55, 0.08);
-            border: 1px solid rgba(111, 78, 55, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .category-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-            z-index: 3;
-        }
-
-        .category-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(111, 78, 55, 0.2);
-            border-color: var(--primary);
-            text-decoration: none;
-        }
-
-        .category-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .category-image-wrapper {
-            position: relative;
-            width: 100%;
-            height: 180px;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .category-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            transition: all 0.4s ease;
-            filter: brightness(0.9) saturate(1.1);
-        }
-
-        .category-card:hover .category-image {
-            transform: scale(1.05);
-            filter: brightness(1) saturate(1.2);
-        }
-
-        .category-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                135deg, 
-                rgba(111, 78, 55, 0.4) 0%, 
-                rgba(111, 78, 55, 0.2) 50%,
-                rgba(181, 155, 123, 0.3) 100%
-            );
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .category-card:hover .category-overlay {
-            opacity: 1;
-        }
-
-        .category-info {
-            padding: 20px;
-            background: var(--bg);
-            position: relative;
-            z-index: 2;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 120px;
-        }
-
-        .category-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text);
-            text-align: center;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-            line-height: 1.3;
-        }
-
-        .category-card:hover .category-title {
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .category-description {
-            font-size: 12px;
-            color: var(--text-light);
-            text-align: center;
-            line-height: 1.5;
-            opacity: 0.8;
-            transition: all 0.3s ease;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            overflow: visible;
-            word-wrap: break-word;
-        }
-
-        .category-card:hover .category-description {
-            opacity: 1;
-            color: var(--text);
-        }
-
-        .category-icon {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-            z-index: 2;
-        }
-
-        .category-icon i {
-            font-size: 18px;
-            color: var(--primary);
-            transition: all 0.4s ease;
-        }
-
-        .category-card:hover .category-icon {
-            background: var(--primary);
-            transform: scale(1.1);
-        }
-
-        .category-card:hover .category-icon i {
-            color: white;
-            transform: rotateY(180deg);
-        }
-
-        /* Navigation Buttons */
-        .slider-nav {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 25px;
-        }
-
-        .nav-btn {
-            width: 48px;
-            height: 48px;
-            border: none;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--light-primary), #f0e6dc);
-            color: var(--primary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            font-size: 18px;
-            box-shadow: 0 4px 15px rgba(111, 78, 55, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            border-radius: 50%;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(111, 78, 55, 0.2);
-        }
-
-        .nav-btn:hover::before {
-            opacity: 1;
-        }
-
-        .nav-btn:hover i {
-            color: white;
-            transform: scale(1.1);
-            z-index: 1;
-            position: relative;
-        }
-
-        .nav-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .nav-btn:disabled:hover {
-            transform: none;
-            box-shadow: 0 4px 15px rgba(111, 78, 55, 0.1);
-        }
-
-        /* Indicators */
-        .slider-indicators {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
-        }
-
-        .indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(111, 78, 55, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .indicator.active {
-            background: var(--primary);
-            transform: scale(1.2);
-        }
-
-        .indicator:hover {
-            background: var(--secondary);
-            transform: scale(1.1);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .categories-section {
-            animation: scaleIn 0.8s ease-out;
-        }
-
-        .category-card {
-            opacity: 0;
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        /* PC/Desktop - Show all categories */
-        @media (min-width: 1024px) {
-            .categories-section {
-                max-width: 1300px;
-            }
-            
-            .slider-track {
-                gap: 18px;
-                justify-content: center;
-            }
-            
-            .category-card {
-                width: 200px;
-                min-height: 290px;
-            }
-            
-            .category-image-wrapper {
-                height: 170px;
-            }
-            
-            .slider-nav,
-            .slider-indicators {
-                display: none;
-            }
-        }
-
-        /* Tablet */
-        @media (max-width: 1023px) and (min-width: 769px) {
-            .category-card {
-                width: 200px;
-                min-height: 280px;
-            }
-            
-            .category-image-wrapper {
-                height: 160px;
-            }
-        }
-
-        /* Mobile - Show 2 columns optimized */
-        @media (max-width: 768px) {
-            .categories-section {
-                padding: 40px 15px;
-            }
-
-            .slider-wrapper {
-                padding: 25px 15px;
-            }
-
-            .slider-track {
-                gap: 20px;
-            }
-
-            .category-card {
-                width: calc(50vw - 30px);
-                min-width: 150px;
-                max-width: 170px;
-                min-height: 260px;
-            }
-
-            .category-image-wrapper {
-                height: 150px;
-            }
-
-            .category-info {
-                padding: 15px 10px;
-                min-height: 110px;
-            }
-
-            .category-title {
-                font-size: 14px;
-                margin-bottom: 8px;
-            }
-
-            .category-description {
-                font-size: 11px;
-                line-height: 1.4;
-            }
-
-            .category-icon {
-                width: 35px;
-                height: 35px;
-                top: 12px;
-                right: 12px;
-            }
-
-            .category-icon i {
-                font-size: 16px;
-            }
-
-            .nav-btn {
-                width: 44px;
-                height: 44px;
-                font-size: 16px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .categories-section {
-                padding: 30px 10px;
-            }
-
-            .slider-wrapper {
-                padding: 20px 10px;
-            }
-
-            .category-card {
-                width: calc(50vw - 25px);
-                min-width: 140px;
-                max-width: 160px;
-                min-height: 250px;
-            }
-
-            .category-image-wrapper {
-                height: 140px;
-            }
-
-            .category-info {
-                padding: 12px 8px;
-                min-height: 110px;
-            }
-
-            .category-title {
-                font-size: 13px;
-                margin-bottom: 6px;
-            }
-
-            .category-description {
-                font-size: 10px;
-                line-height: 1.4;
-            }
-
-            .slider-track {
-                gap: 16px;
-            }
-        }
-
-        /* Very small screens */
-        @media (max-width: 360px) {
-            .category-card {
-                min-height: 240px;
-            }
-            
-            .category-image-wrapper {
-                height: 130px;
-            }
-            
-            .category-info {
-                min-height: 110px;
-            }
-            
-            .category-description {
-                font-size: 9px;
-            }
-        }
-
-        /* Accessibility */
-        @media (prefers-reduced-motion: reduce) {
-            .category-card,
-            .nav-btn,
-            .slider-track,
-            .category-image,
-            .category-icon {
-                transition: none;
-            }
-            
-            .categories-section,
-            .category-card {
-                animation: none;
-                opacity: 1;
-            }
-        }
-
-        .category-card:focus,
-        .nav-btn:focus {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-
-        /* High contrast mode */
-        @media (prefers-contrast: high) {
-            .category-card {
-                border: 2px solid var(--text);
-            }
-        }
+        .cat-card:focus,.nav-btn:focus{outline:2px solid var(--p);outline-offset:2px}
+        @media(prefers-contrast:high){.cat-card{border:2px solid var(--t)}}
     </style>
 </head>
 <body>
-    <section class="categories-section">
-        <div class="section-header">
-            <h2 class="section-title">Nos Catégories</h2>
-            <p class="section-subtitle">Découvrez notre gamme complète de produits cosmétiques naturels et bio pour tous vos besoins beauté.</p>
+    <section class="cat-section">
+        <div class="sect-header">
+            <h2 class="sect-title">Nos Catégories</h2>
+            <p class="sect-subtitle">Découvrez notre gamme complète de produits cosmétiques naturels et bio pour tous vos besoins beauté.</p>
         </div>
         
-        <div class="slider-wrapper">
-            <div class="slider-container">
+        <div class="slider-wrap">
+            <div class="slider-cont">
                 <div class="slider-track" id="sliderTrack">
-                    <a href="https://luneoracosmiteques.com/pages/collections/Soins Visage" class="category-card" target="_top">
-                        <div class="category-image-wrapper">
-                            <img src="https://i.postimg.cc/zBrGnxZS/image-2023-11-23-122114984-1024x761-1-1.webp
-" 
+                    <a href="https://luneoracosmiteques.com/pages/collections-soins-visage" class="cat-card" target="_top">
+                        <div class="cat-img-wrap">
+                            <img src="https://i.postimg.cc/zBrGnxZS/image-2023-11-23-122114984-1024x761-1-1.webp" 
                                  alt="Soins Visage LUNÉORA" 
-                                 class="category-image"
+                                 class="cat-img"
                                  loading="eager">
-                            <div class="category-overlay"></div>
-                            <div class="category-icon">
+                            <div class="cat-overlay"></div>
+                            <div class="cat-icon">
                                 <i class="fas fa-spa"></i>
                             </div>
                         </div>
-                        <div class="category-info">
-                            <h3 class="category-title">Soins Visage</h3>
-                            <p class="category-description">Nettoyants, sérums, crèmes et masques pour une peau éclatante</p>
+                        <div class="cat-info">
+                            <h3 class="cat-title">Soins Visage</h3>
+                            <p class="cat-desc">Nettoyants, sérums, crèmes et masques pour une peau éclatante</p>
                         </div>
                     </a>
                     
-                    <a href="https://luneoracosmiteques.com/pages/collections/Cheveux" class="category-card" target="_top">
-                        <div class="category-image-wrapper">
+                    <a href="https://luneoracosmiteques.com/pages/collections-Cheveux" class="cat-card" target="_top">
+                        <div class="cat-img-wrap">
                             <img src="https://i.postimg.cc/MGMVk5WR/Soin-Capillaire-1024x768-1-1.webp" 
                                  alt="Soins Cheveux LUNÉORA" 
-                                 class="category-image"
+                                 class="cat-img"
                                  loading="lazy">
-                            <div class="category-overlay"></div>
-                            <div class="category-icon">
+                            <div class="cat-overlay"></div>
+                            <div class="cat-icon">
                                 <i class="fas fa-cut"></i>
                             </div>
                         </div>
-                        <div class="category-info">
-                            <h3 class="category-title">Cheveux</h3>
-                            <p class="category-description">Shampoings, après-shampoings et traitements capillaires naturels</p>
+                        <div class="cat-info">
+                            <h3 class="cat-title">Cheveux</h3>
+                            <p class="cat-desc">Shampoings, après-shampoings et traitements capillaires naturels</p>
                         </div>
                     </a>
                     
-                    <a href="https://luneoracosmiteques.com/pages/collections/Soins Corps" class="category-card" target="_top">
-                        <div class="category-image-wrapper">
+                    <a href="https://luneoracosmiteques.com/pages/collections-SoinsCorps" class="cat-card" target="_top">
+                        <div class="cat-img-wrap">
                             <img src="https://i.postimg.cc/W3wbS0sR/Soin-Corps-1024x768-1-1.webp" 
                                  alt="Soins Corps LUNÉORA" 
-                                 class="category-image"
+                                 class="cat-img"
                                  loading="lazy">
-                            <div class="category-overlay"></div>
-                            <div class="category-icon">
+                            <div class="cat-overlay"></div>
+                            <div class="cat-icon">
                                 <i class="fas fa-hands"></i>
                             </div>
                         </div>
-                        <div class="category-info">
-                            <h3 class="category-title">Soins Corps</h3>
-                            <p class="category-description">Crèmes hydratantes, gels douche et baumes nourrissants</p>
+                        <div class="cat-info">
+                            <h3 class="cat-title">Soins Corps</h3>
+                            <p class="cat-desc">Crèmes hydratantes, gels douche et baumes nourrissants</p>
                         </div>
                     </a>
                     
-                    <a href="https://luneoracosmiteques.com/pages/collections/Solaires" class="category-card" target="_top">
-                        <div class="category-image-wrapper">
+                    <a href="https://luneoracosmiteques.com/pages/collections-protection-solaire" class="cat-card" target="_top">
+                        <div class="cat-img-wrap">
                             <img src="https://i.postimg.cc/Rh163QNw/solaire-cat-image.jpg" 
                                  alt="Protection Solaire LUNÉORA" 
-                                 class="category-image"
+                                 class="cat-img"
                                  loading="lazy">
-                            <div class="category-overlay"></div>
-                            <div class="category-icon">
+                            <div class="cat-overlay"></div>
+                            <div class="cat-icon">
                                 <i class="fas fa-sun"></i>
                             </div>
                         </div>
-                        <div class="category-info">
-                            <h3 class="category-title">Solaires</h3>
-                            <p class="category-description">Protection solaire naturelle pour toute la famille</p>
+                        <div class="cat-info">
+                            <h3 class="cat-title">Protection Solaires</h3>
+                            <p class="cat-desc">Protection solaire naturelle pour toute la famille</p>
                         </div>
                     </a>
                     
-                    <a href="https://luneoracosmiteques.com/pages/collections/nospacks" class="category-card" target="_top">
-                        <div class="category-image-wrapper">
+                    <a href="https://luneoracosmiteques.com/pages/collections-nospacks" class="cat-card" target="_top">
+                        <div class="cat-img-wrap">
                             <img src="https://cdn.youcan.shop/stores/c795db5cea64aae47157edb49a145ffe/others/9pj9QEikJrY838lCXgvRUfUTRwPcheEWJMtl78Ac.png" 
                                  alt="Packs LUNÉORA" 
-                                 class="category-image"
+                                 class="cat-img"
                                  loading="lazy">
-                            <div class="category-overlay"></div>
-                            <div class="category-icon">
+                            <div class="cat-overlay"></div>
+                            <div class="cat-icon">
                                 <i class="fas fa-gift"></i>
                             </div>
                         </div>
-                        <div class="category-info">
-                            <h3 class="category-title">Nos Packs</h3>
-                            <p class="category-description">Routines complètes et coffrets beauté à prix avantageux</p>
+                        <div class="cat-info">
+                            <h3 class="cat-title">Nos Packs</h3>
+                            <p class="cat-desc">Routines complètes et coffrets beauté à prix avantageux</p>
                         </div>
                     </a>
                 </div>
             </div>
             
-            <!-- Navigation -->
             <div class="slider-nav">
                 <button class="nav-btn" id="prevBtn" aria-label="Précédent">
                     <i class="fas fa-chevron-left"></i>
@@ -687,7 +209,6 @@
                 </button>
             </div>
             
-            <!-- Indicators -->
             <div class="slider-indicators" id="indicators"></div>
         </div>
     </section>
@@ -695,215 +216,169 @@
     <script>
         class CategorySlider {
             constructor() {
-                this.sliderTrack = document.getElementById('sliderTrack');
-                this.prevBtn = document.getElementById('prevBtn');
-                this.nextBtn = document.getElementById('nextBtn');
-                this.indicatorsContainer = document.getElementById('indicators');
-                this.cards = document.querySelectorAll('.category-card');
+                this.t = document.getElementById('sliderTrack');
+                this.p = document.getElementById('prevBtn');
+                this.n = document.getElementById('nextBtn');
+                this.i = document.getElementById('indicators');
+                this.c = document.querySelectorAll('.cat-card');
                 
-                this.currentIndex = 0;
-                this.totalCards = this.cards.length;
-                this.visibleCards = 2; // Always show 2 on mobile
-                this.maxIndex = Math.max(0, this.totalCards - this.visibleCards);
+                this.ci = 0;
+                this.tc = this.c.length;
+                this.vc = 2;
+                this.mi = Math.max(0, this.tc - this.vc);
                 
-                this.isPlaying = true;
-                this.autoPlaySpeed = 3000;
-                this.autoPlayInterval = null;
+                this.play = true;
+                this.speed = 3000;
+                this.int = null;
                 
                 this.init();
             }
             
             init() {
                 this.updateLayout();
-                this.createIndicators();
+                this.createInd();
                 this.bindEvents();
-                this.animateCards();
+                this.animate();
                 
-                // Responsive handling
                 window.addEventListener('resize', () => {
                     this.updateLayout();
-                    this.createIndicators();
+                    this.createInd();
                 });
                 
-                // Start autoplay only on mobile
-                if (window.innerWidth < 1024) {
-                    this.startAutoPlay();
-                }
+                if (window.innerWidth < 1024) this.startAuto();
             }
             
             updateLayout() {
-                const isDesktop = window.innerWidth >= 1024;
+                const isD = window.innerWidth >= 1024;
                 
-                if (isDesktop) {
-                    // Desktop: show all cards, hide navigation
-                    this.sliderTrack.style.transform = 'translateX(0)';
-                    this.prevBtn.style.display = 'none';
-                    this.nextBtn.style.display = 'none';
-                    this.indicatorsContainer.style.display = 'none';
-                    this.pauseAutoPlay();
+                if (isD) {
+                    this.t.style.transform = 'translateX(0)';
+                    this.p.style.display = 'none';
+                    this.n.style.display = 'none';
+                    this.i.style.display = 'none';
+                    this.pauseAuto();
                 } else {
-                    // Mobile/Tablet: show navigation
-                    this.prevBtn.style.display = 'flex';
-                    this.nextBtn.style.display = 'flex';
-                    this.indicatorsContainer.style.display = 'flex';
+                    this.p.style.display = 'flex';
+                    this.n.style.display = 'flex';
+                    this.i.style.display = 'flex';
                     this.updateSlider();
-                    if (this.isPlaying) {
-                        this.startAutoPlay();
-                    }
+                    if (this.play) this.startAuto();
                 }
             }
             
-            createIndicators() {
+            createInd() {
                 if (window.innerWidth >= 1024) return;
                 
-                const indicatorCount = Math.max(1, this.maxIndex + 1);
-                this.indicatorsContainer.innerHTML = '';
+                const ic = Math.max(1, this.mi + 1);
+                this.i.innerHTML = '';
                 
-                for (let i = 0; i < indicatorCount; i++) {
-                    const indicator = document.createElement('div');
-                    indicator.className = 'indicator';
-                    indicator.addEventListener('click', () => this.goToSlide(i));
-                    this.indicatorsContainer.appendChild(indicator);
+                for (let j = 0; j < ic; j++) {
+                    const ind = document.createElement('div');
+                    ind.className = 'indicator';
+                    ind.onclick = () => this.goTo(j);
+                    this.i.appendChild(ind);
                 }
             }
             
             bindEvents() {
-                this.prevBtn.addEventListener('click', () => this.prevSlide());
-                this.nextBtn.addEventListener('click', () => this.nextSlide());
+                this.p.onclick = () => this.prev();
+                this.n.onclick = () => this.next();
                 
-                // Pause on hover
-                this.sliderTrack.addEventListener('mouseenter', () => this.pauseAutoPlay());
-                this.sliderTrack.addEventListener('mouseleave', () => {
-                    if (this.isPlaying && window.innerWidth < 1024) {
-                        this.startAutoPlay();
-                    }
-                });
+                this.t.onmouseenter = () => this.pauseAuto();
+                this.t.onmouseleave = () => {
+                    if (this.play && window.innerWidth < 1024) this.startAuto();
+                };
                 
-                // Touch/swipe support
-                this.addTouchSupport();
+                this.addTouch();
             }
             
-            addTouchSupport() {
-                let startX = 0;
-                let currentX = 0;
-                let isDragging = false;
+            addTouch() {
+                let sx = 0, cx = 0, drag = false;
                 
-                this.sliderTrack.addEventListener('touchstart', (e) => {
+                this.t.ontouchstart = (e) => {
                     if (window.innerWidth >= 1024) return;
-                    startX = e.touches[0].clientX;
-                    isDragging = true;
-                    this.pauseAutoPlay();
-                });
+                    sx = e.touches[0].clientX;
+                    drag = true;
+                    this.pauseAuto();
+                };
                 
-                this.sliderTrack.addEventListener('touchmove', (e) => {
-                    if (!isDragging || window.innerWidth >= 1024) return;
-                    currentX = e.touches[0].clientX;
-                });
+                this.t.ontouchmove = (e) => {
+                    if (!drag || window.innerWidth >= 1024) return;
+                    cx = e.touches[0].clientX;
+                };
                 
-                this.sliderTrack.addEventListener('touchend', () => {
-                    if (!isDragging || window.innerWidth >= 1024) return;
+                this.t.ontouchend = () => {
+                    if (!drag || window.innerWidth >= 1024) return;
                     
-                    const diff = startX - currentX;
-                    const threshold = 50;
-                    
-                    if (Math.abs(diff) > threshold) {
-                        if (diff > 0) {
-                            this.nextSlide();
-                        } else {
-                            this.prevSlide();
-                        }
+                    const diff = sx - cx;
+                    if (Math.abs(diff) > 50) {
+                        diff > 0 ? this.next() : this.prev();
                     }
                     
-                    isDragging = false;
-                    if (this.isPlaying) this.startAutoPlay();
-                });
+                    drag = false;
+                    if (this.play) this.startAuto();
+                };
             }
             
-            nextSlide() {
+            next() {
                 if (window.innerWidth >= 1024) return;
-                this.currentIndex = (this.currentIndex + 1) % (this.maxIndex + 1);
+                this.ci = (this.ci + 1) % (this.mi + 1);
                 this.updateSlider();
             }
             
-            prevSlide() {
+            prev() {
                 if (window.innerWidth >= 1024) return;
-                this.currentIndex = this.currentIndex === 0 ? this.maxIndex : this.currentIndex - 1;
+                this.ci = this.ci === 0 ? this.mi : this.ci - 1;
                 this.updateSlider();
             }
             
-            goToSlide(index) {
+            goTo(idx) {
                 if (window.innerWidth >= 1024) return;
-                this.currentIndex = Math.max(0, Math.min(index, this.maxIndex));
+                this.ci = Math.max(0, Math.min(idx, this.mi));
                 this.updateSlider();
             }
             
             updateSlider() {
                 if (window.innerWidth >= 1024) return;
                 
-                const firstCard = this.cards[0];
-                if (!firstCard) return;
+                const fc = this.c[0];
+                if (!fc) return;
                 
-                const cardWidth = firstCard.offsetWidth;
-                const gap = parseInt(getComputedStyle(this.sliderTrack).gap) || 20;
-                const translateX = -(cardWidth + gap) * this.currentIndex;
+                const cw = fc.offsetWidth;
+                const gap = parseInt(getComputedStyle(this.t).gap) || 20;
+                const tx = -(cw + gap) * this.ci;
                 
-                this.sliderTrack.style.transform = `translateX(${translateX}px)`;
+                this.t.style.transform = `translateX(${tx}px)`;
                 
-                // Update indicators
-                const indicators = this.indicatorsContainer.querySelectorAll('.indicator');
-                indicators.forEach((indicator, index) => {
-                    indicator.classList.toggle('active', index === this.currentIndex);
+                const inds = this.i.querySelectorAll('.indicator');
+                inds.forEach((ind, idx) => {
+                    ind.classList.toggle('active', idx === this.ci);
                 });
                 
-                // Update navigation buttons
-                this.prevBtn.disabled = this.currentIndex === 0;
-                this.nextBtn.disabled = this.currentIndex === this.maxIndex;
+                this.p.disabled = this.ci === 0;
+                this.n.disabled = this.ci === this.mi;
             }
             
-            startAutoPlay() {
-                if (this.autoPlayInterval) {
-                    clearInterval(this.autoPlayInterval);
-                }
-                
-                this.autoPlayInterval = setInterval(() => {
-                    this.nextSlide();
-                }, this.autoPlaySpeed);
+            startAuto() {
+                if (this.int) clearInterval(this.int);
+                this.int = setInterval(() => this.next(), this.speed);
             }
             
-            pauseAutoPlay() {
-                if (this.autoPlayInterval) {
-                    clearInterval(this.autoPlayInterval);
-                    this.autoPlayInterval = null;
+            pauseAuto() {
+                if (this.int) {
+                    clearInterval(this.int);
+                    this.int = null;
                 }
             }
             
-            animateCards() {
-                this.cards.forEach((card, index) => {
-                    card.style.animationDelay = `${index * 0.1}s`;
+            animate() {
+                this.c.forEach((card, idx) => {
+                    card.style.animationDelay = `${idx * 0.1}s`;
                 });
             }
         }
         
-        // Initialize the slider when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            new CategorySlider();
-        });
-        
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
-                }
-            });
-        }, observerOptions);
-
-        observer.observe(document.querySelector('.categories-section'));
+        document.addEventListener('DOMContentLoaded', () => new CategorySlider());
     </script>
 </body>
 </html>
